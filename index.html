@@ -665,6 +665,9 @@
       transition: width 0.2s ease, background 0.15s ease, opacity 0.15s ease;
     }
     .gallery-dot:hover::before { background: var(--plum); opacity: 1; }
+    .gallery-dots.compact .gallery-dot { min-width: 18px; height: 24px; }
+    .gallery-dots.compact .gallery-dot::before { width: 8px; height: 8px; }
+    .gallery-dots.compact .gallery-dot[aria-current="true"]::before { width: 18px; }
     .gallery-dot[aria-current="true"]::before {
       width: 26px;
       background: var(--plum);
@@ -1118,7 +1121,7 @@
               <span class="status">Operations analysis</span>
             </header>
 
-            <div class="case-main">
+            <div class="case-main single">
               <div class="case-text">
                 <h3 id="case-olist">Olist Shipping Company Evaluation</h3>
                 <dl class="props">
@@ -1140,11 +1143,43 @@
                   </div>
                 </dl>
               </div>
-
-              <figure class="case-media" data-media>
-                <img src="images/project-5.png" width="1600" height="1000" loading="lazy" decoding="async" alt="Preview of the Olist Shipping Company Evaluation project, showing analysis of delivery times and customer satisfaction">
-              </figure>
             </div>
+
+            <ul class="gallery" data-gallery data-label="images" tabindex="0" aria-label="Olist Shipping Company Evaluation images">
+              <li class="gallery-item" data-media><a href="images/project-5/1.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 1 full size (opens in a new tab)"><img src="images/project-5/1.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 1 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/2.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 2 full size (opens in a new tab)"><img src="images/project-5/2.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 2 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/3.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 3 full size (opens in a new tab)"><img src="images/project-5/3.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 3 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/4.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 4 full size (opens in a new tab)"><img src="images/project-5/4.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 4 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/5.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 5 full size (opens in a new tab)"><img src="images/project-5/5.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 5 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/6.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 6 full size (opens in a new tab)"><img src="images/project-5/6.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 6 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/7.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 7 full size (opens in a new tab)"><img src="images/project-5/7.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 7 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/8.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 8 full size (opens in a new tab)"><img src="images/project-5/8.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 8 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/9.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 9 full size (opens in a new tab)"><img src="images/project-5/9.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 9 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/10.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 10 full size (opens in a new tab)"><img src="images/project-5/10.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 10 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/11.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 11 full size (opens in a new tab)"><img src="images/project-5/11.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 11 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/12.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 12 full size (opens in a new tab)"><img src="images/project-5/12.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 12 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/13.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 13 full size (opens in a new tab)"><img src="images/project-5/13.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 13 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/14.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 14 full size (opens in a new tab)"><img src="images/project-5/14.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 14 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/15.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 15 full size (opens in a new tab)"><img src="images/project-5/15.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 15 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/16.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 16 full size (opens in a new tab)"><img src="images/project-5/16.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 16 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/17.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 17 full size (opens in a new tab)"><img src="images/project-5/17.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 17 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/18.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 18 full size (opens in a new tab)"><img src="images/project-5/18.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 18 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/19.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 19 full size (opens in a new tab)"><img src="images/project-5/19.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 19 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/20.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 20 full size (opens in a new tab)"><img src="images/project-5/20.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 20 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/21.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 21 full size (opens in a new tab)"><img src="images/project-5/21.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 21 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/22.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 22 full size (opens in a new tab)"><img src="images/project-5/22.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 22 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/23.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 23 full size (opens in a new tab)"><img src="images/project-5/23.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 23 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/24.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 24 full size (opens in a new tab)"><img src="images/project-5/24.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 24 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/25.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 25 full size (opens in a new tab)"><img src="images/project-5/25.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 25 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/26.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 26 full size (opens in a new tab)"><img src="images/project-5/26.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 26 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/27.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 27 full size (opens in a new tab)"><img src="images/project-5/27.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 27 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/28.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 28 full size (opens in a new tab)"><img src="images/project-5/28.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 28 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/29.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 29 full size (opens in a new tab)"><img src="images/project-5/29.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 29 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/30.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 30 full size (opens in a new tab)"><img src="images/project-5/30.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 30 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/31.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 31 full size (opens in a new tab)"><img src="images/project-5/31.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 31 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/32.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 32 full size (opens in a new tab)"><img src="images/project-5/32.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 32 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+              <li class="gallery-item" data-media><a href="images/project-5/33.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open image 33 full size (opens in a new tab)"><img src="images/project-5/33.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Image 33 of 33 from the Olist Shipping Company Evaluation project"></a></li>
+            </ul>
 
             <footer class="case-foot">
               <a class="btn btn-outline" href="https://github.com/Noora-Alkhalaqi/Data-Sprint-Project" target="_blank" rel="noopener noreferrer" aria-label="View Olist Shipping Company Evaluation on GitHub (opens in a new tab)">
@@ -1354,6 +1389,7 @@
 
           var pages = Math.ceil(total / 2);
           var active = next.disabled ? pages - 1 : Math.floor(first / 2);
+          dots.classList.toggle('compact', pages > 8);
           if (dots.children.length !== pages) {
             dots.innerHTML = '';
             for (var p = 0; p < pages; p++) {
