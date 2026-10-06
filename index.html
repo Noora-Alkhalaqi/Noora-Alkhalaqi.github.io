@@ -603,8 +603,8 @@
     .props { display: grid; margin: 0; }
     .props > div {
       display: grid;
-      grid-template-columns: 92px minmax(0, 1fr);
-      gap: 4px 16px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2px 16px;
       padding: 12px 0;
       border-top: 1px dashed var(--line);
     }
@@ -615,10 +615,33 @@
       color: var(--muted);
       font-family: var(--font-mono);
       font-size: 0.875rem;
-      line-height: 1.9;
+      line-height: 1.5;
+    }
+    @media (min-width: 480px) {
+      .props dt { line-height: 1.9; }
     }
     .props dd { margin: 0; }
     .props .tools-row { font-family: var(--font-mono); font-size: 0.9375rem; }
+    .case-details { margin-top: 4px; }
+    .case-details summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 8px 0;
+      color: var(--link);
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+    }
+    .case-details summary::-webkit-details-marker { display: none; }
+    .case-details summary:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+    .case-details summary .chev { width: 16px; height: 16px; flex: none; transition: transform 0.2s ease; }
+    .case-details[open] summary .chev { transform: rotate(180deg); }
+    .case-details .label-open { display: none; }
+    .case-details[open] .label-open { display: inline; }
+    .case-details[open] .label-closed { display: none; }
+    .case-details .props { margin-top: 4px; }
     .findings { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
     .findings li { position: relative; padding-left: 20px; }
     .findings li::before {
@@ -1040,7 +1063,13 @@
               <div class="case-text">
                 <h3 id="case-misti">AI-Based Fluid Loop Monitoring System</h3>
                 <p class="case-note">An AI-driven monitoring and fault-diagnosis dashboard for a fluid-loop system, built as part of the MISTI Engineering Program at BAPCO in January 2026.</p>
-                <dl class="props">
+                <details class="case-details">
+                  <summary>
+                    <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
+                    <span class="label-closed">Show project details</span>
+                    <span class="label-open">Hide project details</span>
+                  </summary>
+                  <dl class="props">
                   <div>
                     <dt>Problem</dt>
                     <dd>Fluid-loop systems generate large amounts of sensor data that is time-consuming to interpret and prone to errors when detecting faults such as leaks, blockages and pump failures.</dd>
@@ -1062,6 +1091,7 @@
                     <dd class="tools-row">Python / Arduino / MATLAB / Decision Trees / Next.js / TypeScript / SQLite / Ollama</dd>
                   </div>
                 </dl>
+                </details>
               </div>
             </div>
 
@@ -1098,7 +1128,13 @@
               <div class="case-text">
                 <h3 id="case-news">News API Client-Server Architecture</h3>
                 <p class="case-note">A Python client-server application that retrieves and displays real-time news from NewsAPI, developed at the University of Bahrain in November 2024.</p>
-                <dl class="props">
+                <details class="case-details">
+                  <summary>
+                    <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
+                    <span class="label-closed">Show project details</span>
+                    <span class="label-open">Hide project details</span>
+                  </summary>
+                  <dl class="props">
                   <div>
                     <dt>Problem</dt>
                     <dd>Provide a simple way to retrieve and organize real-time news from an external API.</dd>
@@ -1120,6 +1156,7 @@
                     <dd class="tools-row">Python / Tkinter / Sockets / REST API / JSON</dd>
                   </div>
                 </dl>
+                </details>
               </div>
             </div>
 
@@ -1158,7 +1195,13 @@
               <div class="case-text">
                 <h3 id="case-recipe">Recipe Manager</h3>
                 <p class="case-note">A Streamlit recipe management system built with Python and Pandas, where users organize recipes, import them from an external API, generate shopping lists and get ideas from an AI recipe assistant.</p>
-                <dl class="props">
+                <details class="case-details">
+                  <summary>
+                    <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
+                    <span class="label-closed">Show project details</span>
+                    <span class="label-open">Hide project details</span>
+                  </summary>
+                  <dl class="props">
                   <div>
                     <dt>Approach</dt>
                     <dd>Built the interface with Streamlit and stored recipes locally in a CSV file managed with Pandas. Integrated the TheMealDB REST API to import external recipes, and connected an AI cooking assistant through OpenRouter using the OpenAI Python SDK.</dd>
@@ -1176,6 +1219,7 @@
                     <dd class="tools-row">Python / Pandas / Streamlit / REST APIs / OpenRouter / OpenAI SDK / CSV</dd>
                   </div>
                 </dl>
+                </details>
               </div>
             </div>
 
@@ -1216,7 +1260,13 @@
               <div class="case-text">
                 <h3 id="case-nyc">NYC Property Analysis</h3>
                 <p class="case-note">An exploratory analysis of New York City property sales from September 2016 to August 2017, using Python and Pandas.</p>
-                <dl class="props">
+                <details class="case-details">
+                  <summary>
+                    <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
+                    <span class="label-closed">Show project details</span>
+                    <span class="label-open">Hide project details</span>
+                  </summary>
+                  <dl class="props">
                   <div>
                     <dt>Problem</dt>
                     <dd>Give stakeholders a clear view of patterns in the NYC property market, using sales transactions from September 2016 to August 2017.</dd>
@@ -1241,6 +1291,7 @@
                     <dd class="tools-row">Python / Pandas / Data Analysis / Data Visualization / Jupyter Notebook</dd>
                   </div>
                 </dl>
+                </details>
               </div>
             </div>
 
@@ -1279,7 +1330,13 @@
               <div class="case-text">
                 <h3 id="case-olist">Olist Shipping Company Evaluation</h3>
                 <p class="case-note">An evaluation of the shipping company used by Olist, a Brazilian e-commerce marketplace, covering delivery timeliness, freight cost, reliability and service quality.</p>
-                <dl class="props">
+                <details class="case-details">
+                  <summary>
+                    <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
+                    <span class="label-closed">Show project details</span>
+                    <span class="label-open">Hide project details</span>
+                  </summary>
+                  <dl class="props">
                   <div>
                     <dt>Problem</dt>
                     <dd>Determine whether Olist's shipping partner is performing effectively in delivery timeliness, freight cost, reliability and service quality.</dd>
@@ -1304,6 +1361,7 @@
                     <dd class="tools-row">Python / Pandas / NumPy / Matplotlib / Seaborn / Geopy / Jupyter Notebook</dd>
                   </div>
                 </dl>
+                </details>
               </div>
             </div>
 
