@@ -31,7 +31,15 @@
           var host = media.closest('[data-case]');
           if (host && media.classList.contains('case-media')) { host.classList.add('no-media'); }
           var gallery = media.closest('[data-gallery]');
-          if (gallery && !gallery.querySelector('[data-media]:not([hidden])')) { gallery.hidden = true; }
+          if (gallery) {
+            if (!gallery.querySelector('[data-media]:not([hidden])')) {
+              gallery.hidden = true;
+              var bar = gallery.previousElementSibling;
+              if (bar && bar.classList.contains('gallery-bar')) { bar.hidden = true; }
+            } else {
+              gallery.dispatchEvent(new Event('scroll'));
+            }
+          }
         } else {
           img.hidden = true;
         }
@@ -614,15 +622,45 @@
     .case-main.single { grid-template-columns: minmax(0, 1fr); }
     .case-note { max-width: 62ch; margin: 0 0 20px; }
 
+    .gallery, .gallery-bar { --pad: clamp(20px, 3vw, 32px); }
+
+    .gallery-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 var(--pad) 12px;
+    }
+    .gallery-count {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+    .gallery-btns { display: flex; gap: 8px; }
+    .icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .icon-btn:disabled:hover {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+      position: relative;
+      display: flex;
       gap: 12px;
       margin: 0;
-      padding: 0 clamp(20px, 3vw, 32px) clamp(20px, 3vw, 32px);
+      padding: 0 var(--pad) var(--pad);
       list-style: none;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--pad);
     }
+    .js .gallery { scrollbar-width: none; }
+    .js .gallery::-webkit-scrollbar { display: none; }
     .gallery-item {
+      flex: 0 0 calc((100% - 12px) / 2);
+      scroll-snap-align: start;
       margin: 0;
       border: 1px solid var(--line);
       border-radius: 4px;
@@ -918,7 +956,7 @@
               </div>
             </div>
 
-            <ul class="gallery" data-gallery>
+            <ul class="gallery" data-gallery data-label="posters" tabindex="0" aria-label="Project posters">
               <li class="gallery-item" data-media><a href="images/project-1/poster-1-final-final.png" target="_blank" rel="noopener noreferrer" aria-label="Open poster 1 full size (opens in a new tab)"><img src="images/project-1/poster-1-final-final.png" width="800" height="600" loading="lazy" decoding="async" alt="Poster 1 of the AI-Based Fluid Loop Monitoring System project from the MISTI Engineering Program"></a></li>
               <li class="gallery-item" data-media><a href="images/project-1/poster-2-final-final.png" target="_blank" rel="noopener noreferrer" aria-label="Open poster 2 full size (opens in a new tab)"><img src="images/project-1/poster-2-final-final.png" width="800" height="600" loading="lazy" decoding="async" alt="Poster 2 of the AI-Based Fluid Loop Monitoring System project from the MISTI Engineering Program"></a></li>
               <li class="gallery-item" data-media><a href="images/project-1/poster-3-final-final.png" target="_blank" rel="noopener noreferrer" aria-label="Open poster 3 full size (opens in a new tab)"><img src="images/project-1/poster-3-final-final.png" width="800" height="600" loading="lazy" decoding="async" alt="Poster 3 of the AI-Based Fluid Loop Monitoring System project from the MISTI Engineering Program"></a></li>
@@ -953,7 +991,7 @@
               </div>
             </div>
 
-            <ul class="gallery" data-gallery>
+            <ul class="gallery" data-gallery data-label="screenshots" tabindex="0" aria-label="Recipe Manager screenshots">
               <li class="gallery-item" data-media><a href="images/project-3/Screenshot-1.png" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot 1 full size (opens in a new tab)"><img src="images/project-3/Screenshot-1.png" width="800" height="600" loading="lazy" decoding="async" alt="Screenshot 1 of the Recipe Manager project"></a></li>
               <li class="gallery-item" data-media><a href="images/project-3/Screenshot-2.png" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot 2 full size (opens in a new tab)"><img src="images/project-3/Screenshot-2.png" width="800" height="600" loading="lazy" decoding="async" alt="Screenshot 2 of the Recipe Manager project"></a></li>
               <li class="gallery-item" data-media><a href="images/project-3/Screenshot-3.png" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot 3 full size (opens in a new tab)"><img src="images/project-3/Screenshot-3.png" width="800" height="600" loading="lazy" decoding="async" alt="Screenshot 3 of the Recipe Manager project"></a></li>
@@ -1203,6 +1241,67 @@
           if (section) { observer.observe(section); }
         });
       }
+
+      /* Galleries: two images per view, with arrow buttons to scroll */
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var chevronLeft = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+      var chevronRight = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-gallery]'), function (track) {
+        var label = track.getAttribute('data-label') || 'images';
+        var bar = document.createElement('div');
+        bar.className = 'gallery-bar';
+        bar.innerHTML =
+          '<span class="gallery-count" aria-live="polite" aria-atomic="true"></span>' +
+          '<div class="gallery-btns">' +
+            '<button type="button" class="icon-btn" data-dir="-1" aria-label="Previous ' + label + '">' + chevronLeft + '</button>' +
+            '<button type="button" class="icon-btn" data-dir="1" aria-label="Next ' + label + '">' + chevronRight + '</button>' +
+          '</div>';
+        track.parentNode.insertBefore(bar, track);
+
+        var count = bar.querySelector('.gallery-count');
+        var prev = bar.querySelector('[data-dir="-1"]');
+        var next = bar.querySelector('[data-dir="1"]');
+
+        function visibleItems() {
+          return Array.prototype.filter.call(track.children, function (li) { return !li.hidden; });
+        }
+
+        function update() {
+          var list = visibleItems();
+          var total = list.length;
+          bar.hidden = track.hidden || total <= 2;
+          if (bar.hidden) { return; }
+
+          var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+          var first = 0, best = Infinity;
+          list.forEach(function (li, i) {
+            var d = Math.abs(li.offsetLeft - pad - track.scrollLeft);
+            if (d < best) { best = d; first = i; }
+          });
+          var maxScroll = track.scrollWidth - track.clientWidth;
+          count.textContent = (first + 1) + ' to ' + Math.min(first + 2, total) + ' of ' + total;
+          prev.disabled = track.scrollLeft <= 2;
+          next.disabled = track.scrollLeft >= maxScroll - 2;
+        }
+
+        function page(dir) {
+          var list = visibleItems();
+          var step = list.length > 1 ? list[1].offsetLeft - list[0].offsetLeft : track.clientWidth;
+          track.scrollBy({ left: dir * step * 2, behavior: reduceMotion ? 'auto' : 'smooth' });
+        }
+
+        prev.addEventListener('click', function () { page(-1); });
+        next.addEventListener('click', function () { page(1); });
+        track.addEventListener('scroll', update, { passive: true });
+        track.addEventListener('keydown', function (e) {
+          if (e.target !== track) { return; }
+          if (e.key === 'ArrowRight') { e.preventDefault(); page(1); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); page(-1); }
+        });
+        window.addEventListener('resize', update);
+        update();
+      });
 
       /* Catch images that already failed before the listeners ran */
       Array.prototype.forEach.call(document.images, function (img) {
