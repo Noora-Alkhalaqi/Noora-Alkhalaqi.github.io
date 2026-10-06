@@ -689,7 +689,8 @@
     .case-main.single { grid-template-columns: minmax(0, 1fr); }
     .case-note { max-width: 62ch; margin: 0 0 20px; }
 
-    .gallery, .gallery-bar { --pad: clamp(20px, 3vw, 32px); }
+    .gallery, .gallery-bar, .gallery-dots { --pad: clamp(20px, 3vw, 32px); }
+    .gallery, .gallery-bar, .gallery-dots { max-width: calc(620px + var(--pad) * 2); }
 
     .gallery-bar {
       display: flex;
