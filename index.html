@@ -691,7 +691,6 @@
     .case-note { max-width: 62ch; margin: 0 0 20px; }
 
     .gallery, .gallery-bar, .gallery-dots { --pad: clamp(20px, 3vw, 32px); }
-    .gallery, .gallery-bar, .gallery-dots { max-width: calc(620px + var(--pad) * 2); }
 
     .gallery-bar {
       display: flex;
@@ -771,6 +770,38 @@
       background: var(--surface-2);
     }
     .gallery-item a { display: block; border-radius: 0; }
+    @media (min-width: 600px) {
+      .gallery-item { flex-basis: calc((100% - 24px) / 3); }
+    }
+    @media (min-width: 1000px) {
+      .case { --pad: 32px; }
+      .case:has(.gallery:not([hidden])) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) calc(620px + var(--pad) * 2);
+        grid-template-rows: auto auto auto auto auto auto;
+      }
+      .case:has(.gallery:not([hidden])) > .case-main,
+      .case:has(.gallery:not([hidden])) .case-text { display: contents; }
+      .case:has(.gallery:not([hidden])) > .case-head { grid-column: 1 / -1; grid-row: 1; }
+      .case:has(.gallery:not([hidden])) .case-text h3 {
+        grid-column: 1; grid-row: 2; align-self: start;
+        margin: 0 0 18px; padding: var(--pad) 16px 0 var(--pad);
+      }
+      .case:has(.gallery:not([hidden])) .case-note {
+        grid-column: 1; grid-row: 3 / span 2; align-self: start;
+        margin: 0; padding: 0 16px 0 var(--pad);
+      }
+      .case:has(.gallery:not([hidden])) > .gallery-bar { grid-column: 2; grid-row: 2; align-self: start; padding-top: var(--pad); }
+      .case:has(.gallery:not([hidden])) > .gallery { grid-column: 2; grid-row: 3; align-self: start; }
+      .case:has(.gallery:not([hidden])) > .gallery-dots { grid-column: 2; grid-row: 4; align-self: start; }
+      .case:has(.gallery:not([hidden])) .case-details {
+        grid-column: 1 / -1; grid-row: 5;
+        margin: 0; padding: 0 var(--pad) 12px;
+      }
+      .case:has(.gallery:not([hidden])) > .case-foot { grid-column: 1 / -1; grid-row: 6; }
+      .gallery-item { flex-basis: calc((100% - 12px) / 2); }
+    }
+
     .gallery-item img {
       width: 100%;
       height: auto;
@@ -1561,7 +1592,7 @@
         });
       }
 
-      /* Galleries: two images per view, with arrow buttons to scroll */
+      /* Galleries: arrow buttons and dots to scroll through the pictures */
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var chevronLeft = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
       var chevronRight = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
@@ -1590,58 +1621,70 @@
           return Array.prototype.filter.call(track.children, function (li) { return !li.hidden; });
         }
 
-        function update() {
+        /* How many pictures fit in view right now, and how far one picture moves */
+        function metrics() {
           var list = visibleItems();
-          var total = list.length;
-          bar.hidden = track.hidden || total <= 2;
+          var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+          var itemW = list[0] ? list[0].offsetWidth : 0;
+          var gap = list[1] ? list[1].offsetLeft - list[0].offsetLeft - itemW : 12;
+          var inner = track.clientWidth - pad * 2;
+          var per = itemW ? Math.max(1, Math.round((inner + gap) / (itemW + gap))) : 2;
+          return { list: list, pad: pad, step: itemW + gap, per: per };
+        }
+
+        function update() {
+          var m = metrics();
+          var total = m.list.length;
+          bar.hidden = track.hidden || total <= m.per;
           dots.hidden = bar.hidden;
           track.style.paddingBottom = bar.hidden ? 'var(--pad)' : '';
           if (bar.hidden) { return; }
 
-          var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
           var first = 0, best = Infinity;
-          list.forEach(function (li, i) {
-            var d = Math.abs(li.offsetLeft - pad - track.scrollLeft);
+          m.list.forEach(function (li, i) {
+            var d = Math.abs(li.offsetLeft - m.pad - track.scrollLeft);
             if (d < best) { best = d; first = i; }
           });
           var maxScroll = track.scrollWidth - track.clientWidth;
-          count.textContent = (first + 1) + ' to ' + Math.min(first + 2, total) + ' of ' + total;
+          var last = Math.min(first + m.per, total);
+          count.textContent = (last > first + 1 ? (first + 1) + ' to ' + last : String(first + 1)) + ' of ' + total;
           prev.disabled = track.scrollLeft <= 2;
           next.disabled = track.scrollLeft >= maxScroll - 2;
 
-          var pages = Math.ceil(total / 2);
-          var active = next.disabled ? pages - 1 : Math.floor(first / 2);
-          dots.classList.toggle('compact', pages > 8);
-          if (dots.children.length !== pages) {
+          var pages = Math.ceil(total / m.per);
+          var active = next.disabled ? pages - 1 : Math.floor(first / m.per);
+          if (dots.children.length !== pages || dots.getAttribute('data-per') !== String(m.per)) {
+            dots.setAttribute('data-per', String(m.per));
             dots.innerHTML = '';
             for (var p = 0; p < pages; p++) {
               var dot = document.createElement('button');
               dot.type = 'button';
               dot.className = 'gallery-dot';
               dot.setAttribute('data-page', String(p));
-              dot.setAttribute('aria-label', 'Show ' + label + ' ' + (p * 2 + 1) + ' to ' + Math.min(p * 2 + 2, total));
+              var from = p * m.per + 1;
+              var to = Math.min(p * m.per + m.per, total);
+              dot.setAttribute('aria-label', 'Show ' + label + ' ' + (to > from ? from + ' to ' + to : from));
               dots.appendChild(dot);
             }
           }
-          Array.prototype.forEach.call(dots.children, function (b, i) {
-            if (i === active) { b.setAttribute('aria-current', 'true'); }
-            else { b.removeAttribute('aria-current'); }
+          dots.classList.toggle('compact', pages > 8);
+          Array.prototype.forEach.call(dots.children, function (btn, i) {
+            if (i === active) { btn.setAttribute('aria-current', 'true'); }
+            else { btn.removeAttribute('aria-current'); }
           });
         }
 
         function page(dir) {
-          var list = visibleItems();
-          var step = list.length > 1 ? list[1].offsetLeft - list[0].offsetLeft : track.clientWidth;
-          track.scrollBy({ left: dir * step * 2, behavior: reduceMotion ? 'auto' : 'smooth' });
+          var m = metrics();
+          track.scrollBy({ left: dir * m.step * m.per, behavior: reduceMotion ? 'auto' : 'smooth' });
         }
 
         dots.addEventListener('click', function (e) {
-          var b = e.target.closest('.gallery-dot');
-          if (!b) { return; }
-          var list = visibleItems();
-          var target = list[Math.min(Number(b.getAttribute('data-page')) * 2, list.length - 1)];
-          var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
-          track.scrollTo({ left: target.offsetLeft - pad, behavior: reduceMotion ? 'auto' : 'smooth' });
+          var btn = e.target.closest('.gallery-dot');
+          if (!btn) { return; }
+          var m = metrics();
+          var target = m.list[Math.min(Number(btn.getAttribute('data-page')) * m.per, m.list.length - 1)];
+          track.scrollTo({ left: target.offsetLeft - m.pad, behavior: reduceMotion ? 'auto' : 'smooth' });
         });
         prev.addEventListener('click', function () { page(-1); });
         next.addEventListener('click', function () { page(1); });
