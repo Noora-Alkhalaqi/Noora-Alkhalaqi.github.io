@@ -36,6 +36,8 @@
               gallery.hidden = true;
               var bar = gallery.previousElementSibling;
               if (bar && bar.classList.contains('gallery-bar')) { bar.hidden = true; }
+              var dotsEl = gallery.nextElementSibling;
+              if (dotsEl && dotsEl.classList.contains('gallery-dots')) { dotsEl.hidden = true; }
             } else {
               gallery.dispatchEvent(new Event('scroll'));
             }
@@ -637,6 +639,37 @@
       font-size: 0.875rem;
     }
     .gallery-btns { display: flex; gap: 8px; }
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 var(--pad, 20px) clamp(14px, 2vw, 22px);
+    }
+    .gallery-dot {
+      display: grid;
+      place-items: center;
+      min-width: 28px;
+      height: 28px;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+    .gallery-dot::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: var(--muted);
+      opacity: 0.75;
+      border-radius: 999px;
+      transition: width 0.2s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+    .gallery-dot:hover::before { background: var(--plum); opacity: 1; }
+    .gallery-dot[aria-current="true"]::before {
+      width: 26px;
+      background: var(--plum);
+      opacity: 1;
+    }
     .icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
     .icon-btn:disabled:hover {
       background: transparent;
@@ -656,7 +689,7 @@
       scroll-snap-type: x mandatory;
       scroll-padding-inline: var(--pad);
     }
-    .js .gallery { scrollbar-width: none; }
+    .js .gallery { scrollbar-width: none; padding-bottom: 12px; }
     .js .gallery::-webkit-scrollbar { display: none; }
     .gallery-item {
       flex: 0 0 calc((100% - 12px) / 2);
@@ -1259,6 +1292,10 @@
           '</div>';
         track.parentNode.insertBefore(bar, track);
 
+        var dots = document.createElement('div');
+        dots.className = 'gallery-dots';
+        track.parentNode.insertBefore(dots, track.nextSibling);
+
         var count = bar.querySelector('.gallery-count');
         var prev = bar.querySelector('[data-dir="-1"]');
         var next = bar.querySelector('[data-dir="1"]');
@@ -1271,6 +1308,8 @@
           var list = visibleItems();
           var total = list.length;
           bar.hidden = track.hidden || total <= 2;
+          dots.hidden = bar.hidden;
+          track.style.paddingBottom = bar.hidden ? 'var(--pad)' : '';
           if (bar.hidden) { return; }
 
           var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
@@ -1283,6 +1322,24 @@
           count.textContent = (first + 1) + ' to ' + Math.min(first + 2, total) + ' of ' + total;
           prev.disabled = track.scrollLeft <= 2;
           next.disabled = track.scrollLeft >= maxScroll - 2;
+
+          var pages = Math.ceil(total / 2);
+          var active = next.disabled ? pages - 1 : Math.floor(first / 2);
+          if (dots.children.length !== pages) {
+            dots.innerHTML = '';
+            for (var p = 0; p < pages; p++) {
+              var dot = document.createElement('button');
+              dot.type = 'button';
+              dot.className = 'gallery-dot';
+              dot.setAttribute('data-page', String(p));
+              dot.setAttribute('aria-label', 'Show ' + label + ' ' + (p * 2 + 1) + ' to ' + Math.min(p * 2 + 2, total));
+              dots.appendChild(dot);
+            }
+          }
+          Array.prototype.forEach.call(dots.children, function (b, i) {
+            if (i === active) { b.setAttribute('aria-current', 'true'); }
+            else { b.removeAttribute('aria-current'); }
+          });
         }
 
         function page(dir) {
@@ -1291,6 +1348,14 @@
           track.scrollBy({ left: dir * step * 2, behavior: reduceMotion ? 'auto' : 'smooth' });
         }
 
+        dots.addEventListener('click', function (e) {
+          var b = e.target.closest('.gallery-dot');
+          if (!b) { return; }
+          var list = visibleItems();
+          var target = list[Math.min(Number(b.getAttribute('data-page')) * 2, list.length - 1)];
+          var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+          track.scrollTo({ left: target.offsetLeft - pad, behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
         prev.addEventListener('click', function () { page(-1); });
         next.addEventListener('click', function () { page(1); });
         track.addEventListener('scroll', update, { passive: true });
