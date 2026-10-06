@@ -619,6 +619,15 @@
     }
     .props dd { margin: 0; }
     .props .tools-row { font-family: var(--font-mono); font-size: 0.9375rem; }
+    .findings { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .findings li { position: relative; padding-left: 20px; }
+    .findings li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.8em;
+      width: 10px; height: 2px;
+      background: var(--plum);
+    }
 
     .case-media {
       position: relative;
@@ -1206,22 +1215,30 @@
             <div class="case-main single">
               <div class="case-text">
                 <h3 id="case-nyc">NYC Property Analysis</h3>
+                <p class="case-note">An exploratory analysis of New York City property sales from September 2016 to August 2017, using Python and Pandas.</p>
                 <dl class="props">
                   <div>
                     <dt>Problem</dt>
-                    <dd>Understand valuation trends and real estate patterns in New York City property sales.</dd>
+                    <dd>Give stakeholders a clear view of patterns in the NYC property market, using sales transactions from September 2016 to August 2017.</dd>
                   </div>
                   <div>
                     <dt>Approach</dt>
-                    <dd>Performed exploratory data analysis and data processing on the property sales data.</dd>
+                    <dd>Cleaned the Kaggle NYC Property Sales dataset (84,548 rows reduced to 69,987) by handling missing and invalid values, converting data types, identifying transfer transactions and creating a building age feature. Then analyzed prices by borough, sales by neighborhood, building age, monthly activity and residential versus commercial sales.</dd>
                   </div>
                   <div>
                     <dt>Outcome</dt>
-                    <dd>Identified valuation trends and real estate patterns in the data.</dd>
+                    <dd>
+                      <ul class="findings">
+                        <li>Manhattan had the highest median sale price, about $1.17 million, and the Bronx the lowest, about $405,000.</li>
+                        <li>Flushing-North had the most sales of any neighborhood analyzed, with 2,170 transactions.</li>
+                        <li>June 2017 was the busiest month, with 5,955 transactions.</li>
+                        <li>Residential-only sales (38,791) far outnumbered commercial-only sales (1,287).</li>
+                      </ul>
+                    </dd>
                   </div>
                   <div>
                     <dt>Tools</dt>
-                    <dd class="tools-row">Python / Pandas / Data Analysis</dd>
+                    <dd class="tools-row">Python / Pandas / Data Analysis / Data Visualization / Jupyter Notebook</dd>
                   </div>
                 </dl>
               </div>
