@@ -687,6 +687,7 @@
     }
 
     .case-main.single { grid-template-columns: minmax(0, 1fr); }
+    .case-main.single .case-text { padding-bottom: 8px; }
     .case-note { max-width: 62ch; margin: 0 0 20px; }
 
     .gallery, .gallery-bar, .gallery-dots { --pad: clamp(20px, 3vw, 32px); }
@@ -697,7 +698,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 0 var(--pad) 12px;
+      padding: 8px var(--pad) 12px;
     }
     .gallery-count {
       color: var(--muted);
