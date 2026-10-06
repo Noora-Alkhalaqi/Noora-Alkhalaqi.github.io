@@ -842,6 +842,9 @@
       overflow: hidden;
     }
     .badge-img img { width: 100%; height: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+    .badge-img a { display: block; width: 100%; height: 100%; border-radius: 0; cursor: zoom-in; }
+    .badge-img a:hover img { opacity: 0.8; }
+    .badge-img img { transition: opacity 0.15s ease; }
     @media (max-width: 639px) {
       .badge-img { margin-top: 10px; }
     }
@@ -1461,7 +1464,9 @@
                   <p>Kennesaw State University</p>
                 </div>
                 <figure class="badge-img" data-media>
-                  <img src="images/badges/Cybersecurity-Awareness.png" width="144" height="144" loading="lazy" decoding="async" alt="Badge for the Cybersecurity Awareness for Everyone Specialization from Kennesaw State University">
+                  <a href="images/badges/Cybersecurity-Awareness.png" target="_blank" rel="noopener noreferrer" aria-label="View the Cybersecurity Awareness for Everyone certificate full size (opens in a new tab)">
+                    <img src="images/badges/Cybersecurity-Awareness.png" width="144" height="144" loading="lazy" decoding="async" alt="Badge for the Cybersecurity Awareness for Everyone Specialization from Kennesaw State University">
+                  </a>
                 </figure>
               </li>
             </ul>
