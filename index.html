@@ -622,7 +622,7 @@
     }
     .props dd { margin: 0; }
     .props .tools-row { font-family: var(--font-mono); font-size: 0.9375rem; }
-    .case-details { margin-top: 4px; }
+    .case-details { margin: 0; padding: 0 clamp(20px, 3vw, 32px) 12px; }
     .case-details summary {
       display: inline-flex;
       align-items: center;
@@ -687,7 +687,7 @@
     }
 
     .case-main.single { grid-template-columns: minmax(0, 1fr); }
-    .case-main.single .case-text { padding-bottom: 8px; }
+    .case-main.single .case-text { padding-bottom: 0; }
     .case-note { max-width: 62ch; margin: 0 0 20px; }
 
     .gallery, .gallery-bar, .gallery-dots { --pad: clamp(20px, 3vw, 32px); }
@@ -778,26 +778,19 @@
       .case:has(.gallery:not([hidden])) {
         display: grid;
         grid-template-columns: minmax(0, 1fr) calc(620px + var(--pad) * 2);
-        grid-template-rows: auto auto auto auto auto auto;
+        grid-template-rows: auto auto auto auto auto;
       }
-      .case:has(.gallery:not([hidden])) > .case-main,
-      .case:has(.gallery:not([hidden])) .case-text { display: contents; }
+      .case:has(.gallery:not([hidden])) > .case-main { display: contents; }
       .case:has(.gallery:not([hidden])) > .case-head { grid-column: 1 / -1; grid-row: 1; }
-      .case:has(.gallery:not([hidden])) .case-text h3 {
-        grid-column: 1; grid-row: 2; align-self: start;
-        margin: 0 0 18px; padding: var(--pad) 16px 0 var(--pad);
-      }
-      .case:has(.gallery:not([hidden])) .case-note {
-        grid-column: 1; grid-row: 3 / span 2; align-self: start;
-        margin: 0; padding: 0 16px 0 var(--pad);
+      /* the text starts level with the top of the pictures: the controls bar above them is pad + 44px button + 12px tall */
+      .case:has(.gallery:not([hidden])) .case-text {
+        grid-column: 1; grid-row: 2 / span 3; align-self: start;
+        padding: calc(var(--pad) + 50px) 16px 0 var(--pad);
       }
       .case:has(.gallery:not([hidden])) > .gallery-bar { grid-column: 2; grid-row: 2; align-self: start; padding-top: var(--pad); }
       .case:has(.gallery:not([hidden])) > .gallery { grid-column: 2; grid-row: 3; align-self: start; }
       .case:has(.gallery:not([hidden])) > .gallery-dots { grid-column: 2; grid-row: 4; align-self: start; }
-      .case:has(.gallery:not([hidden])) .case-details {
-        grid-column: 1 / -1; grid-row: 5;
-        margin: 0; padding: 0 var(--pad) 12px;
-      }
+      .case:has(.gallery:not([hidden])) .case-main > .case-details { grid-column: 1 / -1; grid-row: 5; }
       .case:has(.gallery:not([hidden])) > .case-foot { grid-column: 1 / -1; grid-row: 6; }
       .gallery-item { flex-basis: calc((100% - 12px) / 2); }
     }
@@ -1096,7 +1089,8 @@
               <div class="case-text">
                 <h3 id="case-misti">AI-Based Fluid Loop Monitoring System</h3>
                 <p class="case-note">An AI-driven monitoring and fault-diagnosis dashboard for a fluid-loop system, built as part of the MISTI Engineering Program at BAPCO in January 2026.</p>
-                <details class="case-details">
+                </div>
+              <details class="case-details">
                   <summary>
                     <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
                     <span class="label-closed">Show project details</span>
@@ -1125,7 +1119,6 @@
                   </div>
                 </dl>
                 </details>
-              </div>
             </div>
 
             <ul class="gallery" data-gallery data-label="posters" tabindex="0" aria-label="Project posters">
@@ -1161,7 +1154,8 @@
               <div class="case-text">
                 <h3 id="case-news">News API Client-Server Architecture</h3>
                 <p class="case-note">A Python client-server application that retrieves and displays real-time news from NewsAPI, developed at the University of Bahrain in November 2024.</p>
-                <details class="case-details">
+                </div>
+              <details class="case-details">
                   <summary>
                     <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
                     <span class="label-closed">Show project details</span>
@@ -1190,7 +1184,6 @@
                   </div>
                 </dl>
                 </details>
-              </div>
             </div>
 
             <ul class="gallery" data-gallery data-label="screenshots" tabindex="0" aria-label="News API Client-Server Architecture screenshots">
@@ -1228,7 +1221,8 @@
               <div class="case-text">
                 <h3 id="case-recipe">Recipe Manager</h3>
                 <p class="case-note">A Streamlit recipe management system built with Python and Pandas, where users organize recipes, import them from an external API, generate shopping lists and get ideas from an AI recipe assistant.</p>
-                <details class="case-details">
+                </div>
+              <details class="case-details">
                   <summary>
                     <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
                     <span class="label-closed">Show project details</span>
@@ -1253,7 +1247,6 @@
                   </div>
                 </dl>
                 </details>
-              </div>
             </div>
 
             <ul class="gallery" data-gallery data-label="screenshots" tabindex="0" aria-label="Recipe Manager screenshots">
@@ -1293,7 +1286,8 @@
               <div class="case-text">
                 <h3 id="case-nyc">NYC Property Analysis</h3>
                 <p class="case-note">An exploratory analysis of New York City property sales from September 2016 to August 2017, using Python and Pandas.</p>
-                <details class="case-details">
+                </div>
+              <details class="case-details">
                   <summary>
                     <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
                     <span class="label-closed">Show project details</span>
@@ -1325,7 +1319,6 @@
                   </div>
                 </dl>
                 </details>
-              </div>
             </div>
 
             <ul class="gallery" data-gallery data-label="images" tabindex="0" aria-label="NYC Property Analysis images">
@@ -1363,7 +1356,8 @@
               <div class="case-text">
                 <h3 id="case-olist">Olist Shipping Company Evaluation</h3>
                 <p class="case-note">An evaluation of the shipping company used by Olist, a Brazilian e-commerce marketplace, covering delivery timeliness, freight cost, reliability and service quality.</p>
-                <details class="case-details">
+                </div>
+              <details class="case-details">
                   <summary>
                     <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6L8 10.5 12.5 6"/></svg>
                     <span class="label-closed">Show project details</span>
@@ -1395,7 +1389,6 @@
                   </div>
                 </dl>
                 </details>
-              </div>
             </div>
 
             <ul class="gallery" data-gallery data-label="images" tabindex="0" aria-label="Olist Shipping Company Evaluation images">
