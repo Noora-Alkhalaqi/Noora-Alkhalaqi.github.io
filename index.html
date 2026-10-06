@@ -1278,22 +1278,30 @@
             <div class="case-main single">
               <div class="case-text">
                 <h3 id="case-olist">Olist Shipping Company Evaluation</h3>
+                <p class="case-note">An evaluation of the shipping company used by Olist, a Brazilian e-commerce marketplace, covering delivery timeliness, freight cost, reliability and service quality.</p>
                 <dl class="props">
                   <div>
                     <dt>Problem</dt>
-                    <dd>Assess the shipping performance and logistics operations of the e-commerce company Olist.</dd>
+                    <dd>Determine whether Olist's shipping partner is performing effectively in delivery timeliness, freight cost, reliability and service quality.</dd>
                   </div>
                   <div>
                     <dt>Approach</dt>
-                    <dd>Analyzed delivery times, customer satisfaction and operational efficiency.</dd>
+                    <dd>Cleaned and merged the Olist datasets (orders, customers, sellers, products, reviews, order items and geolocation) with Python. Analyzed delivery delays, freight-to-price ratios, performance by state and in-state versus out-of-state deliveries, and how delivery performance relates to customer satisfaction, cancellations and complaints.</dd>
                   </div>
                   <div>
                     <dt>Outcome</dt>
-                    <dd>Produced an evaluation of Olist's shipping performance and logistics operations.</dd>
+                    <dd>
+                      <ul class="findings">
+                        <li>93.22% of orders were delivered on time and 6.78% were delayed.</li>
+                        <li>Average customer satisfaction was 4.09 out of 5.</li>
+                        <li>The freight-to-price ratio was 32%, and freight generally rose with product weight and delivery distance.</li>
+                        <li>Recommended keeping the current shipping partner, monitoring performance, and building a machine-learning model that predicts whether an order will be delivered on time or late.</li>
+                      </ul>
+                    </dd>
                   </div>
                   <div>
                     <dt>Tools</dt>
-                    <dd class="tools-row">Python / Data Science / Data Visualization</dd>
+                    <dd class="tools-row">Python / Pandas / NumPy / Matplotlib / Seaborn / Geopy / Jupyter Notebook</dd>
                   </div>
                 </dl>
               </div>
