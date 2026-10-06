@@ -447,7 +447,7 @@
       padding: 0 0 8px;
     }
     @media (min-width: 640px) {
-      .entry { grid-template-columns: 120px minmax(0, 1fr); }
+      .entry { grid-template-columns: 160px minmax(0, 1fr); }
     }
     .when {
       margin: 0;
@@ -466,6 +466,31 @@
       background: var(--plum);
     }
     .closing { max-width: 64ch; margin: 0; color: var(--muted); }
+    .entry + .entry {
+      margin-top: 44px;
+      padding-top: 44px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .exp-project {
+      max-width: 64ch;
+      padding-left: 18px;
+      border-left: 2px solid var(--plum);
+    }
+    .exp-project h4 {
+      margin: 0 0 4px;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 1.1875rem;
+      line-height: 1.3;
+    }
+    .exp-tools {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    .exp-project p:last-child { margin-bottom: 0; }
 
     /* ---------- Skills ---------- */
     .skill-groups { display: grid; gap: 0; }
@@ -482,7 +507,7 @@
     .skill-group h3 { font-size: 1.1875rem; }
     .skill-items {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 8px 20px;
       font-family: var(--font-mono);
       font-size: 0.9375rem;
@@ -885,10 +910,13 @@
         <div class="split-label"><h2 id="about-title">About</h2></div>
         <div>
           <p class="lead">
-            I am an IT Intern at BQA with hands-on experience across IT operations, data analytics and security fundamentals.
+            I am a Cybersecurity student at the University of Bahrain and a Data Science Bootcamp Fellow at General Assembly, with hands-on experience across IT operations, data analytics and security fundamentals from my internship at BQA.
           </p>
           <p class="lead">
-            I am currently pursuing a B.S. in Cybersecurity while sharpening advanced data science skills through General Assembly.
+            My interest in data science began in a program where I built a machine learning and AI solution. I enjoyed working with data, finding patterns and using analysis to solve problems, and I have since developed my skills in Python, Pandas, data analysis and visualization.
+          </p>
+          <p class="lead">
+            I am now working toward a career that combines cybersecurity with data science, using data-driven approaches to solve security and technology problems. I describe my working style as analytical, curious and hardworking.
           </p>
         </div>
       </div>
@@ -900,20 +928,31 @@
         <div class="split-label"><h2 id="experience-title">Experience</h2></div>
         <div>
           <article class="entry">
-            <p class="when">2026</p>
+            <p class="when">Sep 2026 to present</p>
+            <div>
+              <h3>Data Science Bootcamp Fellow</h3>
+              <p class="org">General Assembly, Bahrain</p>
+              <div class="exp-project">
+                <h4>Recipe Manager Application</h4>
+                <p class="exp-tools">Python / Pandas / Streamlit / REST APIs / OpenRouter / OpenAI SDK / CSV</p>
+                <p>Developed an AI-powered recipe management application with API integration, data processing, personalized recommendations and automated shopping lists.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="entry">
+            <p class="when">Jun 2026 to Sep 2026</p>
             <div>
               <h3>IT Intern</h3>
-              <p class="org">Education and Training Quality Authority (BQA)</p>
+              <p class="org">Education and Training Quality Authority (BQA), Bahrain</p>
               <ul class="points">
-                <li>Supported IT operations and system management.</li>
-                <li>Analyzed survey data using Excel and XEPO.ai.</li>
-                <li>Contributed to website and chatbot improvements using WordPress and AI tools.</li>
-                <li>Gained practical exposure to AWS, servers, VPNs and firewalls.</li>
-                <li>Evaluated technology tools and vendors based on functionality, cost and organizational requirements.</li>
+                <li>Analyzed survey data using Microsoft Excel and XEPO.ai, organizing datasets, extracting results and preparing summary reports.</li>
+                <li>Collected and analyzed feedback from teachers, learners and parents to identify website usability issues and support improvements.</li>
+                <li>Enhanced the organization's chatbot by improving its interface, developing interactive menus and supporting AI-enabled features.</li>
+                <li>Created and managed pages and website content using WordPress, and contributed to website improvement activities including sitemap reviews, content updates and user-experience enhancements.</li>
+                <li>Evaluated software tools and vendors, considering functionality, cost, intellectual property rights and organizational requirements.</li>
+                <li>Gained practical exposure to IT infrastructure and cybersecurity technologies, including AWS, servers, VPNs and firewalls.</li>
               </ul>
-              <p class="closing">
-                Contributed to improvements in the organization's digital systems while gaining hands-on experience in IT, data analysis and emerging technologies.
-              </p>
             </div>
           </article>
         </div>
@@ -926,29 +965,72 @@
         <div class="split-label"><h2 id="skills-title">Skills</h2></div>
         <div class="skill-groups">
           <div class="skill-group">
-            <h3>Data and machine learning</h3>
+            <h3>Data analytics and processing</h3>
             <ul class="skill-items">
-              <li>Python</li>
-              <li>Machine Learning</li>
               <li>Data Analysis</li>
+              <li>Data Collection</li>
+              <li>Structured Dataset Generation</li>
+              <li>Data Processing</li>
+              <li>Reporting</li>
+              <li>Pandas</li>
               <li>SQL</li>
               <li>Excel</li>
               <li>XEPO.ai</li>
             </ul>
           </div>
           <div class="skill-group">
-            <h3>Integration and web</h3>
+            <h3>Machine learning and statistical analysis</h3>
             <ul class="skill-items">
+              <li>Machine Learning</li>
+              <li>Decision Trees</li>
+              <li>Anomaly Detection</li>
+              <li>Fault Classification</li>
+              <li>Fault Tree Analysis (FTA)</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Programming and tools</h3>
+            <ul class="skill-items">
+              <li>Python</li>
+              <li>Java</li>
+              <li>PHP</li>
+              <li>MySQL</li>
+              <li>JavaScript</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>Arduino</li>
+              <li>Tkinter</li>
+              <li>Streamlit</li>
+              <li>REST APIs</li>
               <li>API Integration</li>
+              <li>Git/GitHub</li>
               <li>WordPress</li>
             </ul>
           </div>
           <div class="skill-group">
-            <h3>Cloud, network and security</h3>
+            <h3>IT and cybersecurity</h3>
             <ul class="skill-items">
-              <li>AWS</li>
+              <li>AWS Fundamentals</li>
+              <li>Servers</li>
               <li>VPNs</li>
               <li>Firewalls</li>
+              <li>Wireshark</li>
+              <li>Cisco Packet Tracer</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Working style</h3>
+            <ul class="skill-items">
+              <li>Problem-Solving</li>
+              <li>Teamwork</li>
+              <li>Analytical Thinking</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Languages</h3>
+            <ul class="skill-items">
+              <li>Arabic</li>
+              <li>English</li>
             </ul>
           </div>
         </div>
@@ -1268,7 +1350,7 @@
                 </div>
               </li>
               <li class="edu-item">
-                <p class="when">2026 to present</p>
+                <p class="when">Sep 2026 to present</p>
                 <div>
                   <h4>Data Science Bootcamp Program</h4>
                   <p>General Assembly, Bahrain</p>
